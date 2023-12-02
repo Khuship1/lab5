@@ -1,0 +1,27 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  web-deploy:
+  name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.1.1
+        env:
+          FTP_SERVER: home562576484.1and1-data.host
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+           local_path: './*'
+          PORT: 22
+          METHOD: sftp
+          remote_path: '/Macintosh HD/Users/khushipatel/lab5/'
+          sftp_only: true
